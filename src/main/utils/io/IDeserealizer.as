@@ -2,7 +2,7 @@ package utils.io
 {
 	import flash.utils.IDataOutput;
 	
-	public interface IDesirealizer 
+	public interface IDeserealizer 
 	{
 		
 		/**

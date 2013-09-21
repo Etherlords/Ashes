@@ -1,6 +1,8 @@
 package 
 {
+	import utils.io.DoubleTest;
 	import utils.io.IntTest;
+	import utils.io.PointTest;
 	
 	
 	[Suite] 
@@ -9,6 +11,8 @@ package
 	{
 		
 		public var intTest:IntTest
+		public var doubleTest:DoubleTest
+		public var pointTest:PointTest
 	}
 
 }

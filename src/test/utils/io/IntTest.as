@@ -2,6 +2,7 @@ package utils.io
 {
 	import flash.utils.ByteArray;
 	import org.hamcrest.assertThat;
+	import org.hamcrest.object.equalTo;
 	/**
 	 * ...
 	 * @author Nikro
@@ -10,7 +11,7 @@ package utils.io
 	{
 		private var input:ByteArray;
 		private var output:ByteArray;
-		private var intProcessor:Int;
+		private var processor:IntOperator;
 		
 		public function IntTest() 
 		{
@@ -23,7 +24,7 @@ package utils.io
 			input = new ByteArray();
 			output = new ByteArray();
 			
-			intProcessor = new Int();
+			processor = new IntOperator();
 		}
 		
 		[Test(description="Int serialize fail")]
@@ -31,18 +32,20 @@ package utils.io
 		{
 			input.writeInt(1234);
 			input.position = 0;
-			assertThat(intProcessor.serialize(input), 1234);
 			
+			assertThat('check buffer size', processor.serialize(input), equalTo(TypesSize.INT_SIZE));
+			assertThat('check serialization value', processor.value, equalTo(1234));
 		}
 		
 		[Test(description="Int deserialize fail")]
 		public function testDeserialize():void
 		{
-			intProcessor.value = 4321;
-			intProcessor.deserialize(output);
+			processor.value = 4321;
+			var readedSize:int = processor.deserialize(output);
 			output.position = 0;
 			
-			assertThat(output.readInt(), 4321);
+			assertThat('check buffer size', readedSize, equalTo(TypesSize.INT_SIZE));
+			assertThat('check desirialization value', output.readInt(), equalTo(4321));
 		}
 		
 	}

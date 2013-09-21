@@ -3,26 +3,26 @@ package utils.io
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	
-	public class Int implements ISerializer, IDesirealizer, IStreamOperator
+	public class DoubleOperator implements ISerializer, IDeserealizer, IStreamOperator
 	{
 		private var _value:Object;
 		
-		private static const _size:int = TypesSize.INT_SIZE;
+		private static const _size:Number = TypesSize.DOUBLE_SIZE;
 		
-		public function Int(value:int = 0) 
+		public function DoubleOperator(value:Number = 0) 
 		{
 			_value = value;
 		}
 		
 		public function deserialize(source:IDataOutput):int 
 		{
-			source.writeInt(_value as int);
+			source.writeDouble(_value as Number);
 			return _size;
 		}
 		
 		public function serialize(source:IDataInput):int 
 		{
-			_value = source.readInt();
+			_value = source.readDouble();
 			return _size;
 		}
 		
