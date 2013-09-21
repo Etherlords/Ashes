@@ -12,7 +12,7 @@ package utils.io
 		private var serializersCount:int = 0;
 		private var deserializersCount:int = 0;
 		
-		private var output:Object = { };
+		private var output:Array = [];
 		
 		private var _size:int = 0;
 		
@@ -34,6 +34,7 @@ package utils.io
 			{
 				currentDeserializer = deserializers[i];
 				_size += currentDeserializer.deserialize(source);
+				output.push(currentDeserializer.value);
 				trace(currentDeserializer);
 			}
 			
@@ -48,6 +49,7 @@ package utils.io
 			{
 				currentSerializer = serializers[i];
 				_size += currentSerializer.serialize(source);
+				output.push(currentSerializer.value);
 				trace(currentSerializer);
 			}
 			
@@ -74,7 +76,7 @@ package utils.io
 		
 		public function get value():Object 
 		{
-			return {};
+			return output;
 		}
 		
 		public function set value(value:Object):void 

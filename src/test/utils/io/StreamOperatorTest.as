@@ -56,12 +56,16 @@ package utils.io
 			input.position = 0;
 			assertThat('check buffer size', processor.serialize(input), equalTo(size));
 			assertThat('check processor size', processor.size, equalTo(size));
+			
+			assertThat('check serialization value[0]', processor.value[0], equalTo(size));
+			assertThat('check serialization value[1]', processor.value[1], equalTo(12));
+			assertThat('check serialization value[2]', processor.value[2], equalTo(1234567890.123));
 			//assertThat('check serialization value', processor.value, equalTo(1234));
 		}
 		
 	
 		[Test]
-		public function testDeserialize():void
+		public function testHeaderDeserialize():void
 		{
 			processor.addDesirealizer(new IntOperator(16));
 			processor.addDesirealizer(new IntOperator(12));

@@ -35,12 +35,12 @@ package utils.io
 			input.writeDouble(4321.4321);
 			input.position = 0;
 			
-			var p:Point = new Point();
-			processor.value = p;
+			var testPoint:Point = new Point();
+			processor.value = testPoint;
 			
 			assertThat('check buffer size', processor.serialize(input), equalTo(TypesSize.POINT_SIZE));
-			assertThat('check serialization value.x', p.x, equalTo(1234.1234));
-			assertThat('check serialization value.y', p.y, equalTo(4321.4321));
+			assertThat('check serialization value.x', testPoint.x, equalTo(1234.1234));
+			assertThat('check serialization value.y', testPoint.y, equalTo(4321.4321));
 			
 		}
 		
@@ -53,7 +53,7 @@ package utils.io
 			output.position = 0;
 			
 			assertThat('check serialization value.x', output.readDouble(), equalTo(4321.4321));
-			assertThat('check serialization value.y', output.readDouble(), equalTo(1234.1234));;
+			assertThat('check serialization value.y', output.readDouble(), equalTo(1234.1234));
 		}
 		
 	}
