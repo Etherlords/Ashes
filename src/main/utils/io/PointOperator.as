@@ -3,8 +3,9 @@ package utils.io
 	import flash.geom.Point;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
+	import utils.formateToString;
 	
-	public class PointOperator implements ISerializer, IDeserealizer, IStreamOperator
+	public class PointOperator implements ISerializer, IDeserializer
 	{
 		private var _value:Object;
 		
@@ -29,7 +30,7 @@ package utils.io
 			return _size;
 		}
 		
-		public function get size():Boolean 
+		public function get size():int 
 		{
 			return _size;
 		}
@@ -47,6 +48,11 @@ package utils.io
 		public function get isStaticSize():Boolean 
 		{
 			return true;
+		}
+		
+		public function toString():String 
+		{
+			return formateToString(this, 'value', 'size');
 		}
 		
 	}

@@ -27,7 +27,7 @@ package utils.io
 			processor = new IntOperator();
 		}
 		
-		[Test(description="Int serialize fail")]
+		[Test]
 		public function testSerialize():void
 		{
 			input.writeInt(1234);
@@ -37,7 +37,7 @@ package utils.io
 			assertThat('check serialization value', processor.value, equalTo(1234));
 		}
 		
-		[Test(description="Int deserialize fail")]
+		[Test]
 		public function testDeserialize():void
 		{
 			processor.value = 4321;

@@ -2,13 +2,13 @@ package utils.io.deserealizers
 {
 	import error.AbstractMethodError;
 	import flash.utils.IDataOutput;
-	import utils.io.IDeserealizer.as;
+	import utils.io.IDeserializer.as;
 	
 	/**
 	 * ...
 	 * @author Nikro
 	 */
-	public class AbstractDeserealizer implements IDeserealizer.as
+	public class AbstractDeserealizer implements IDeserializer.as
 	{
 		
 		public function AbstractDeserealizer() 

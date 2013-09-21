@@ -2,7 +2,7 @@ package utils.io
 {
 	import flash.utils.IDataOutput;
 	
-	public interface IDeserealizer 
+	public interface IDeserializer extends IStreamOperator
 	{
 		
 		/**
