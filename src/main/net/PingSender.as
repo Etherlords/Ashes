@@ -3,7 +3,9 @@ package net
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import net.packets.BasePacket;
+	import net.packets.BytePacket;
 	import net.packets.PacketsBuilder;
+	import utils.io.StreamOperator;
 	/**
 	 * ...
 	 * @author Nikro
@@ -11,13 +13,12 @@ package net
 	public class PingSender 
 	{
 		private var timer:Timer;
-		private var pingPacket:BasePacket;
 		
 		[Inject]
 		public var connectionManager:ConnectionManager;
 		
-		[Inject]
-		public var packetsBuilder:PacketsBuilder;
+		[Inject(id='PingPacket')]
+		public var pingPacket:BytePacket;
 		
 		public function PingSender() 
 		{
@@ -31,14 +32,13 @@ package net
 			timer.addEventListener(TimerEvent.TIMER, sendPing);
 			timer.start();
 			
-			pingPacket = packetsBuilder.buildPingPacket();
-			
 			sendPing();
 		}
 		
 		private function sendPing(e:TimerEvent = null):void 
 		{
-			pingPacket.write(connectionManager.sock);
+			pingPacket.source = connectionManager.sock;
+			pingPacket.write();
 			connectionManager.sock.flush();
 		}
 		

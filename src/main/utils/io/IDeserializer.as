@@ -12,6 +12,10 @@ package utils.io
 		 */
 		function deserialize(source:IDataOutput):int
 		
+		function calculateWriteSize():int;
+		
+		function get writeSize():int;
+		
 	}
 
 }

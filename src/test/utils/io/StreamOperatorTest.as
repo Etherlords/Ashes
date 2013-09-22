@@ -55,7 +55,7 @@ package utils.io
 			
 			input.position = 0;
 			assertThat('check buffer size', processor.serialize(input), equalTo(size));
-			assertThat('check processor size', processor.size, equalTo(size));
+			assertThat('check processor size', processor.readSize, equalTo(size));
 			
 			assertThat('check serialization value[0]', processor.value[0], equalTo(size));
 			assertThat('check serialization value[1]', processor.value[1], equalTo(12));
@@ -67,12 +67,14 @@ package utils.io
 		[Test]
 		public function testHeaderDeserialize():void
 		{
-			processor.addDesirealizer(new IntOperator(16));
-			processor.addDesirealizer(new IntOperator(12));
-			processor.addDesirealizer(new DoubleOperator(1234567890.123));
+			processor.addDeserializer(new IntOperator(16));
+			processor.addDeserializer(new IntOperator(12));
+			processor.addDeserializer(new DoubleOperator(1234567890.123));
+			
+			processor.input = [16, 12, 1234567890.123];
 			
 			assertThat('check buffer size', processor.deserialize(output), equalTo(16));
-			assertThat('check processor size', processor.size, equalTo(16));
+			assertThat('check processor size', processor.writeSize, equalTo(16));
 			
 			for (var i:int = 0; i < input.length; i++)
 			{

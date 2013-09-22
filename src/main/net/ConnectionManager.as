@@ -20,10 +20,10 @@ package net
 		[Inject]
 		public var worldTime:WorldTimeController;
 		
-		
 		public function ConnectionManager() 
 		{
 			inject(this);	
+			connect();
 		}
 		
 		public function connect():void 

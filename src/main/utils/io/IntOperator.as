@@ -15,6 +15,11 @@ package utils.io
 			_value = value;
 		}
 		
+		public function set value(value:Object):void
+		{
+			_value = value;
+		}
+		
 		public function deserialize(source:IDataOutput):int 
 		{
 			source.writeInt(_value as int);
@@ -27,19 +32,9 @@ package utils.io
 			return _size;
 		}
 		
-		public function get size():int 
-		{
-			return _size;
-		}
-		
 		public function get value():Object 
 		{
 			return _value;
-		}
-		
-		public function set value(value:Object):void 
-		{
-			_value = value;
 		}
 		
 		public function get isStaticSize():Boolean 
@@ -50,6 +45,26 @@ package utils.io
 		public function toString():String 
 		{
 			return formateToString(this, 'value', 'size');
+		}
+		
+		public function calculateReadSize():int 
+		{
+			return _size;
+		}
+		
+		public function calculateWriteSize():int 
+		{
+			return _size;
+		}
+		
+		public function get writeSize():int 
+		{
+			return _size;
+		}
+		
+		public function get readSize():int 
+		{
+			return _size;
 		}
 		
 	}

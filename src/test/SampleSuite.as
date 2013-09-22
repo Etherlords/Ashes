@@ -1,5 +1,8 @@
 package 
 {
+
+	import utils.configuration.BeanTest;
+	import utils.configuration.ConfiguratorTest;
 	import utils.io.deserealizers.AbstractDeserealizer;
 	import utils.io.DoubleTest;
 	import utils.io.IntTest;
@@ -18,8 +21,8 @@ package
 		public var pointTest:PointTest;
 		public var streamTest:StreamOperatorTest;
 		
-		private var abs:AbstractSerializer;
-		private var abs2:AbstractDeserealizer;
+		public var beanTest:BeanTest;
+		public var configTest:ConfiguratorTest;
 	}
 
 }

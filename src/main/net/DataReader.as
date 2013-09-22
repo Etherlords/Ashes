@@ -1,9 +1,11 @@
 package net 
 {
 	import flash.utils.ByteArray;
+	import flash.utils.IDataInput;
 	import net.packets.AddPlayerPacket;
 	import net.packets.BasePacket;
 	import net.packets.packetparts.Header;
+	import utils.io.IStreamOperator;
 	/**
 	 * ...
 	 * @author Nikro
@@ -25,15 +27,15 @@ package net
 			fillReaders();
 		}
 		
-		private function fillReaders():void 
+		public function addStreamOperator(operator:IStreamOperator):void
 		{
-			//readers[AddPlayerPacket.TYPE] = new AddPlayerPacket();
+			
 		}
 		
 		private var bytesNeeded:uint = 0
 		private var bufferLength:uint = 0;
 		
-		public function read(input:ByteArray):void
+		public function read(input:IDataInput):void
 		{
 			input.position = 0;
 			

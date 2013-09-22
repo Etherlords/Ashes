@@ -4,7 +4,6 @@ package utils.io
 	
 	public interface ISerializer extends IStreamOperator
 	{
-		
 		/**
 		 * Read data from raw byte stream
 		 * @param	source an data input stream
@@ -12,6 +11,9 @@ package utils.io
 		 */
 		function serialize(source:IDataInput):int
 		
+		function calculateReadSize():int;
+		
+		function get readSize():int;
 	}
 
 }

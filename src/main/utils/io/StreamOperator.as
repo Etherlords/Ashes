@@ -12,9 +12,11 @@ package utils.io
 		private var serializersCount:int = 0;
 		private var deserializersCount:int = 0;
 		
-		private var output:Array = [];
+		public var output:Array = [];
+		public var input:Array;
 		
-		private var _size:int = 0;
+		private var _writeSize:int = 0;
+		private var _readSize:int = 0;
 		
 		private var serializers:Vector.<ISerializer> = new Vector.<ISerializer>;
 		private var deserializers:Vector.<IDeserializer> = new Vector.<IDeserializer>;
@@ -28,32 +30,36 @@ package utils.io
 		
 		public function deserialize(source:IDataOutput):int 
 		{
-			_size = 0;
+			var size:int = 0;
 			var currentDeserializer:IDeserializer;
 			for (var i:int = 0; i < deserializersCount; i++)
 			{
 				currentDeserializer = deserializers[i];
-				_size += currentDeserializer.deserialize(source);
-				output.push(currentDeserializer.value);
-				trace(currentDeserializer);
+				currentDeserializer.value = input[i];
+				size += currentDeserializer.deserialize(source);
+				//trace(currentdeserializer);
 			}
 			
-			return _size;
+			trace('writed: ' + size);
+			
+			return size;
 		}
 		
 		public function serialize(source:IDataInput):int 
 		{
-			_size = 0;
+			var size:int = 0;
 			var currentSerializer:ISerializer;
 			for (var i:int = 0; i < serializersCount; i++)
 			{
 				currentSerializer = serializers[i];
-				_size += currentSerializer.serialize(source);
+				size += currentSerializer.serialize(source);
 				output.push(currentSerializer.value);
-				trace(currentSerializer);
+				//trace(currentSerializer);
 			}
 			
-			return _size;
+			trace('readed: ' + size);
+			
+			return size;
 		}
 		
 		public function addSerializer(serializer:ISerializer):void 
@@ -63,15 +69,19 @@ package utils.io
 			
 			if (!serializer.isStaticSize)
 				_isStaticSize = false;
+			else
+				_readSize += serializer.readSize;
 		}
 		
-		public function addDesirealizer(deserializer:IDeserializer):void 
+		public function addDeserializer(deserializer:IDeserializer):void 
 		{
 			deserializersCount++;
 			deserializers.push(deserializer);
 			
 			if (!deserializer.isStaticSize)
 				_isStaticSize = false;
+			else
+				_writeSize += deserializer.writeSize;
 		}
 		
 		public function get value():Object 
@@ -79,9 +89,9 @@ package utils.io
 			return output;
 		}
 		
-		public function set value(value:Object):void 
+		public function set value(value:Object):void
 		{
-			//_value = value;
+			input = value as Array;
 		}
 		
 		public function get isStaticSize():Boolean 
@@ -89,9 +99,50 @@ package utils.io
 			return _isStaticSize;
 		}
 		
-		public function get size():int 
+		public function calculateReadSize():int
 		{
-			return _size;
+			if (_isStaticSize)
+			{
+				return _readSize;
+			}
+			
+			_readSize = 0;
+			var currentSerializer:ISerializer;
+			for (var i:int = 0; i < serializersCount; i++)
+			{
+				currentSerializer = serializers[i];
+				_readSize += currentSerializer.readSize
+			}
+			
+			return _readSize;
+		}
+		
+		public function calculateWriteSize():int
+		{
+			if (_isStaticSize)
+			{
+				return _writeSize;
+			}
+			
+			_writeSize = 0;
+			var currentDesirealizer:IDeserializer;
+			for (var i:int = 0; i < deserializersCount; i++)
+			{
+				currentDesirealizer = deserializers[i];
+				_writeSize += currentDesirealizer.writeSize;
+			}
+			
+			return _writeSize;
+		}
+		
+		public function get readSize():int
+		{
+			return _readSize;
+		}
+		
+		public function get writeSize():int 
+		{
+			return _writeSize;
 		}
 		
 	}

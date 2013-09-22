@@ -8,7 +8,7 @@ package utils.io
 	public interface IStream 
 	{
 		function addSerializer(serializer:ISerializer):void
-		function addDesirealizer(deserializer:IDeserializer):void
+		function addDeserializer(deserializer:IDeserializer):void
 	}
 	
 }
