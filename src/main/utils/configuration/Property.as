@@ -1,8 +1,9 @@
 package utils.configuration 
 {
-import core.ioc.Context;
-
-public class Property implements IProperty
+	import core.ioc.Context;
+	import utils.configuration.ClassFactory;
+	
+	public class Property implements IProperty
 	{
 		
 		public var instance:Object;
@@ -52,6 +53,10 @@ public class Property implements IProperty
 				return null;
 				
 			var size:int = xml.length();
+			
+			if (!size)
+				return null;
+				
 			var ret:Vector.<IProperty> = new Vector.<IProperty>;
 			
 			for (var i:int = 0; i < size; i++)

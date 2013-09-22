@@ -37,6 +37,7 @@
       <path-element>C:\git\ParticleDesignTool\src</path-element>
       <path-element>C:\git\reality-0.1\src\main</path-element>
       <path-element>C:\git\Ashes\lib</path-element>
+      <path-element>C:\git\Ashes\resources</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
