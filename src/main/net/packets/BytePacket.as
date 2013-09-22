@@ -15,11 +15,11 @@ package net.packets
 		public var streamOperator:StreamOperator;
 		public var headerOperator:StreamOperator;
 		
-		protected var input:Array = [];
-		protected var output:Array = [];
+		public var input:Array = [];
+		public var output:Array = [];
 		
-		protected var headerInput:Array = [];
-		protected var headerOutput:Array = [];
+		public var headerInput:Array = [];
+		public var headerOutput:Array = [];
 		
 		public function BytePacket() 
 		{
@@ -28,7 +28,10 @@ package net.packets
 		
 		public function read():void
 		{
-			if (!streamOperator)
+			headerOperator.output = headerOutput;
+			headerOperator.serialize((source as IDataInput));
+			
+			if (streamOperator)
 			{
 				streamOperator.output = output;
 				streamOperator.serialize((source as IDataInput));
@@ -37,17 +40,32 @@ package net.packets
 		
 		public function write():void
 		{
-
-			headerInput[0] = headerOperator.writeSize;
-			headerInput[1] = type;
-			headerOperator.input = headerInput;
-			headerOperator.deserialize((source as IDataOutput));
+			var size:int;
 			
 			if (streamOperator)
 			{
 				streamOperator.input = input;
-				streamOperator.deserialize((source as IDataOutput));
+				
+				if (streamOperator.isStaticSize)
+					size += streamOperator.writeSize;
+				else
+					size += streamOperator.calculateWriteSize();
 			}
+			
+			if (headerOperator.isStaticSize)
+				size += headerOperator.writeSize;
+			else
+				size += headerOperator.calculateWriteSize();
+			
+			headerInput[0] = size;
+			headerInput[1] = type;
+			headerInput[2] = 0;
+			
+			headerOperator.input = headerInput;
+			headerOperator.deserialize((source as IDataOutput));
+			
+			if (streamOperator)
+				streamOperator.deserialize((source as IDataOutput));
 		}
 		
 		

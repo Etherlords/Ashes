@@ -112,7 +112,12 @@ import flash.utils.IDataOutput;
 			for (var i:int = 0; i < serializersCount; i++)
 			{
 				currentSerializer = serializers[i];
-				_readSize += currentSerializer.readSize
+				currentSerializer.value = output[i];
+				
+				if(currentSerializer.isStaticSize)
+					_readSize += currentSerializer.readSize
+				else
+					_readSize += currentSerializer.calculateReadSize();
 			}
 			
 			return _readSize;
@@ -130,7 +135,12 @@ import flash.utils.IDataOutput;
 			for (var i:int = 0; i < deserializersCount; i++)
 			{
 				currentDesirealizer = deserializers[i];
-				_writeSize += currentDesirealizer.writeSize;
+				currentDesirealizer.value = input[i];
+				
+				if(currentDesirealizer.isStaticSize)
+					_writeSize += currentDesirealizer.writeSize;
+				else
+					_writeSize += currentDesirealizer.calculateWriteSize();
 			}
 			
 			return _writeSize;

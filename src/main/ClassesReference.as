@@ -9,6 +9,7 @@ package
 	import utils.io.IntOperator;
 	import utils.io.PointOperator;
 	import utils.io.StreamOperator;
+	import utils.io.UTFStringOperator;
 
 	public class ClassesReference 
 	{
@@ -16,6 +17,7 @@ package
 		internal var intOp:IntOperator;
         internal var doubleOp:DoubleOperator;
         internal var pointOp:PointOperator;
+        internal var utfStringOp:UTFStringOperator;
 
         internal var streamOp:StreamOperator;
         internal var conManager:ConnectionManager;

@@ -1,6 +1,7 @@
 package utils.configuration 
 {
 	import core.ioc.Context;
+	import utils.Cast;
 	import utils.configuration.ClassFactory;
 	
 	public class Property implements IProperty
@@ -31,10 +32,17 @@ package utils.configuration
 			
 			if (reference)
 				fromInstance(reference, instance);
+			else if (value)
+				fromValue(value, instance);
 			else
 				fromClass(clazz, instance);
 				
 			return instance;
+		}
+		
+		static private function fromValue(value:String, instance:Property):void 
+		{
+			instance.instance = Cast.cast(value);
 		}
 		
 		static private function fromClass(clazz:String, instance:Property):void 
