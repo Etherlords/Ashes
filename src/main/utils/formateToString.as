@@ -1,8 +1,8 @@
 package utils 
 {
-	import flash.utils.getQualifiedClassName;
-	
-	public function formateToString(...rest:Array):String
+import flash.utils.getQualifiedClassName;
+
+public function formateToString(...rest:Array):String
 	{
 		var target:Object = rest.shift();
 		

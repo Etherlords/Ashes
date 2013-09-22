@@ -13,17 +13,17 @@ package
 	public class ClassesReference 
 	{
 		
-		var intOp:IntOperator;
-		var doubleOp:DoubleOperator;
-		var pointOp:PointOperator;
-		
-		var streamOp:StreamOperator;
-		var conManager:ConnectionManager;
-		var pingSender:PingSender;
-		var bytePack:BytePacket;
-		
-		var worldTime:WorldTimeController;
-		var mathem:PathMathematic;
+		internal var intOp:IntOperator;
+        internal var doubleOp:DoubleOperator;
+        internal var pointOp:PointOperator;
+
+        internal var streamOp:StreamOperator;
+        internal var conManager:ConnectionManager;
+        internal var pingSender:PingSender;
+        internal var bytePack:BytePacket;
+
+        internal var worldTime:WorldTimeController;
+        internal var mathem:PathMathematic;
 		//var md5builder:MD5ModelBuilder;
 		
 	}

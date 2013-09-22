@@ -1,10 +1,11 @@
 package utils.io 
 {
-	import flash.utils.IDataInput;
-	import flash.utils.IDataOutput;
-	import utils.formateToString;
-	
-	public class DoubleOperator implements ISerializer, IDeserializer
+import flash.utils.IDataInput;
+import flash.utils.IDataOutput;
+
+import utils.formateToString;
+
+public class DoubleOperator implements ISerializer, IDeserializer
 	{
 		private var _value:Object;
 		

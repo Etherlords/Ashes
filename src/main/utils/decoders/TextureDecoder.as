@@ -1,11 +1,12 @@
 package utils.decoders 
 {
-	import away3d.textures.BitmapTexture;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.events.Event;
-	import flash.utils.ByteArray;
-	/**
+import away3d.textures.BitmapTexture;
+
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.events.Event;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */

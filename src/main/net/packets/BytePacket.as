@@ -37,8 +37,8 @@ package net.packets
 		
 		public function write():void
 		{
-			var size:int = headerOperator.writeSize;
-			headerInput[0] = size;
+
+			headerInput[0] = headerOperator.writeSize;
 			headerInput[1] = type;
 			headerOperator.input = headerInput;
 			headerOperator.deserialize((source as IDataOutput));

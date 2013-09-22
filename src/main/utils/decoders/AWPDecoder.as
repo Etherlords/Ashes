@@ -1,16 +1,17 @@
 package utils.decoders 
 {
-	import away3d.arcane;
-	import away3d.entities.ParticleGroup;
-	import away3d.events.AssetEvent;
-	import away3d.events.LoaderEvent;
-	import away3d.library.assets.AssetType;
-	import away3d.loaders.AssetLoader;
-	import away3d.loaders.misc.AssetLoaderContext;
-	import flash.events.TimerEvent;
-	import flash.utils.ByteArray;
-	import flash.utils.Timer;
-	/**
+import away3d.arcane;
+import away3d.events.AssetEvent;
+import away3d.events.LoaderEvent;
+import away3d.library.assets.AssetType;
+import away3d.loaders.AssetLoader;
+import away3d.loaders.misc.AssetLoaderContext;
+
+import flash.events.TimerEvent;
+import flash.utils.ByteArray;
+import flash.utils.Timer;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */

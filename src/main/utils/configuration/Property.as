@@ -1,9 +1,8 @@
 package utils.configuration 
 {
-	import core.ioc.Context;
-	import utils.configuration.ClassFactory;
-	
-	public class Property implements IProperty
+import core.ioc.Context;
+
+public class Property implements IProperty
 	{
 		
 		public var instance:Object;

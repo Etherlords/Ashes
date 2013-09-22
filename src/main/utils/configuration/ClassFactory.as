@@ -1,9 +1,10 @@
 package utils.configuration 
 {
-	import flash.system.ApplicationDomain;
-	import utils.configuration.error.ClassReferenceError;
-	
-	/**
+import flash.system.ApplicationDomain;
+
+import utils.configuration.error.ClassReferenceError;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */
@@ -24,7 +25,7 @@ package utils.configuration
 				throw new ClassReferenceError(reference);
 			}
 			
-			return null
+			return null;
 		}
 		
 	}

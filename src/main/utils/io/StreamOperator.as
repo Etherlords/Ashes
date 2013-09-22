@@ -1,8 +1,9 @@
 package utils.io 
 {
-	import flash.utils.IDataInput;
-	import flash.utils.IDataOutput;
-	/**
+import flash.utils.IDataInput;
+import flash.utils.IDataOutput;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */

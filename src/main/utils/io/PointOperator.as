@@ -1,11 +1,12 @@
 package utils.io 
 {
-	import flash.geom.Point;
-	import flash.utils.IDataInput;
-	import flash.utils.IDataOutput;
-	import utils.formateToString;
-	
-	public class PointOperator implements ISerializer, IDeserializer
+import flash.geom.Point;
+import flash.utils.IDataInput;
+import flash.utils.IDataOutput;
+
+import utils.formateToString;
+
+public class PointOperator implements ISerializer, IDeserializer
 	{
 		private var _value:Object;
 		

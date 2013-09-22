@@ -1,9 +1,8 @@
 package utils.configuration 
 {
-	import core.ioc.Context;
-	import utils.configuration.ClassFactory;
-	
-	public class MethodLookup implements IProperty
+import core.ioc.Context;
+
+public class MethodLookup implements IProperty
 	{
 		
 		public var instance:Object;

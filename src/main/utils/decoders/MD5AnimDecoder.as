@@ -1,9 +1,8 @@
 package utils.decoders 
 {
-	import away3d.animators.nodes.SkeletonClipNode;
-	import away3d.events.AssetEvent;
-	import away3d.events.LoaderEvent;
-	/**
+import away3d.events.AssetEvent;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */

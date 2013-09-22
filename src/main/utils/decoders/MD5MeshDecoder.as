@@ -1,13 +1,16 @@
 package utils.decoders 
 {
-	import away3d.events.AssetEvent;
-	import away3d.events.LoaderEvent;
-	import away3d.loaders.AssetLoader;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.utils.ByteArray;
-	import resources.MD5MeshResource;
-	/**
+import away3d.events.AssetEvent;
+import away3d.events.LoaderEvent;
+import away3d.loaders.AssetLoader;
+
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.utils.ByteArray;
+
+import resources.MD5MeshResource;
+
+/**
 	 * ...
 	 * @author Nikro
 	 */

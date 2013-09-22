@@ -1,8 +1,8 @@
 package utils.io 
 {
-	import flash.utils.IDataInput;
-	
-	public interface ISerializer extends IStreamOperator
+import flash.utils.IDataInput;
+
+public interface ISerializer extends IStreamOperator
 	{
 		/**
 		 * Read data from raw byte stream

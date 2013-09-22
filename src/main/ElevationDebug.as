@@ -1,13 +1,14 @@
 package  
 {
 	import away3d.extrusions.Elevation;
-	import characters.PositionSetter3D;
-	import flash.display.Bitmap;
+
+import characters.model.mobile.PositionSetter3D;
+
+import flash.display.Bitmap;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import mvc.mainscene.logic.TerrainBuilder;
-	import ui.TerrainSettingsController;
 	
 	/**
 	 * ...
@@ -34,7 +35,7 @@ package
 		private var isUseLight:Boolean = true;
 		
 		private var scale:Number = 5;
-		private var isUseDiffuseMethod:Boolean = true;;
+		private var isUseDiffuseMethod:Boolean = true;
 		
 		public function ElevationDebug() 
 		{
