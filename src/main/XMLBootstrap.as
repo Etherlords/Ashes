@@ -21,7 +21,7 @@ package
 		{
 			loader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, onConfigLoaded);
-			loader.load(new URLRequest('config/mainconfig.xml'));
+			loader.load(new URLRequest('../../resources/mainconfig.xml'));
 		}
 		
 		private function onConfigLoaded(e:Event):void 

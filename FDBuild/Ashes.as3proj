@@ -22,6 +22,7 @@
     <class path="..\..\ParticleDesignTool\src" />
     <class path="..\..\reality-0.1\src\main" />
     <class path="..\lib" />
+    <class path="..\resources" />
   </classpaths>
   <!-- Build options -->
   <build>
