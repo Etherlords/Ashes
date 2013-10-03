@@ -1,6 +1,7 @@
 package utils.configuration 
 {
 import core.ioc.Context;
+import error.MethodLookupError;
 
 public class MethodLookup implements IProperty
 	{
@@ -28,11 +29,13 @@ public class MethodLookup implements IProperty
 			var value:String = xml.@[KeyConstants.VALUE];
 			var clazz:String = xml.@[KeyConstants.CLASS_REF];
 			
+			
 			if (reference)
 				fromInstance(reference, instance);
-			else
+			else if(clazz)
 				fromClass(clazz, instance);
-				
+			else
+				throw MethodLookupError.badFormatClassOrInstance(xml.toXMLString());
 				
 			return instance;
 		}

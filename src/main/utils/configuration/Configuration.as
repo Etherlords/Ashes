@@ -6,7 +6,7 @@ package utils.configuration
 	 */
 	public class Configuration 
 	{
-		private static var configReaders:Vector.<IConfigReader>;
+		private static var configReaders:Vector.<Class>;
 		
 		public function Configuration() 
 		{
@@ -16,8 +16,8 @@ package utils.configuration
 		
 		private function initilize():void 
 		{
-			configReaders = new Vector.<IConfigReader>
-			configReaders.push(new Bean());
+			configReaders = new Vector.<Class>
+			configReaders.push(Bean);
 		}
 		
 		public function processConfig(config:IConfig):void
@@ -29,15 +29,30 @@ package utils.configuration
 			var configReader:IConfigReader;
 			var xmlConfig:XML = config.value;
 			
-			for each(configReader in configReaders)
+			var configurators:Vector.<IConfigReader> = new Vector.<IConfigReader>;
+			
+			for each(var constructor:Class in configReaders)
 			{
+				configReader = new constructor();
 				currentConfigList = xmlConfig.children().(name() == configReader.ident);
 				currentSize = currentConfigList.length();
 				
 				for (i = 0; i < currentSize; i++)
 				{
+					configReader = new constructor();
 					configReader.read(currentConfigList[i]);
+					configurators.push(configReader);
 				}
+			}
+			
+			for (i = 0; i < configurators.length; i++)
+			{
+				configurators[i].inject();
+			}
+			
+			for (i = 0; i < configurators.length; i++)
+			{
+				configurators[i].callConstructor();
 			}
 			
 		}

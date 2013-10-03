@@ -16,13 +16,15 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
+    <class path="..\src\app" />
     <class path="..\src\main" />
+    <class path="..\resources" />
     <class path="..\..\away3dExtension\src" />
     <class path="..\..\away3d-core-fp11\src" />
     <class path="..\..\ParticleDesignTool\src" />
     <class path="..\..\reality-0.1\src\main" />
     <class path="..\lib" />
-    <class path="..\resources" />
+    <class path="..\..\minimalcomps\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -78,7 +80,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="..\src\main\Main.as" />
+    <compile path="..\src\app\Main.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

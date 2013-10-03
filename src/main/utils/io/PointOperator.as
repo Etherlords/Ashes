@@ -48,7 +48,7 @@ public class PointOperator implements ISerializer, IDeserializer
 		
 		public function toString():String 
 		{
-			return formateToString(this, 'value', 'size');
+			return formateToString(this, 'value', 'writeSize', 'readSize');
 		}
 		
 		public function calculateReadSize():int 

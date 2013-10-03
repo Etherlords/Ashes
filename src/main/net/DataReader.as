@@ -2,11 +2,12 @@ package net
 {
 	import flash.utils.ByteArray;
 	import flash.utils.IDataInput;
+	import net.events.SocketDataEventRouter;
 	import net.packets.BytePacket;
-	import utils.dump.dump;
 	
-	public class DataReader 
+	public class DataReader
 	{
+		public var eventRouter:SocketDataEventRouter;
 		
 		public var readers:Object = { };
 		public var buffer:ByteArray = new ByteArray();
@@ -15,6 +16,7 @@ package net
 		
 		public function DataReader() 
 		{
+			//inject(this);
 			initilize();
 		}
 		
@@ -70,11 +72,16 @@ package net
 			
 			//read packet
 			var reader:BytePacket = readers[type];
-			reader.source = buffer;
-			buffer.position = 0;
 			
-			trace('read', reader);
-			reader.read();
+			if (reader)
+			{
+				reader.source = buffer;
+				buffer.position = 0;
+				
+				reader.read();
+				
+				eventRouter.routeData(reader);
+			}
 			
 			bufferLength -= bytesNeeded;
 			buffer.writeBytes(buffer, bytesNeeded, bufferLength);

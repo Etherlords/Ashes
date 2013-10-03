@@ -1,52 +1,110 @@
 <config>
+	<!-- ui -->
+		<bean class="logic.ui.LoginWindowController">
+			<property name="loginService" ref="LoginService"/>
+		</bean>
+	<!-- end of ui -->
+	<!-- Main configuration -->
+		<bean id="Main" class="logic.MainController">
+			<property name="pingSender" ref="PingSender"/>
+		</bean>
+	<!-- end of Main configuration -->
 	
 	<!-- utils -->
-	<bean class="WorldTimeController"/>
-	<bean class="geom.PathMathematic"/>
+		<bean class="WorldTimeController"/>
+		<bean class="geom.PathMathematic"/>
 	<!-- end of utils -->
 	
 	<!-- Net configuration -->
-	<bean class="utils.io.IntOperator" id="IntOperator"/>
-	<bean class="utils.io.DoubleOperator" id="DoubleOperator"/>
-	<bean class="utils.io.PointOperator" id="PointOperator"/>
-	<bean class="utils.io.UTFStringOperator" id="UTFStringOperator"/>
-	
-	<bean id="HeaderOperator" class="utils.io.StreamOperator">	
-		<lookup-method ref="IntOperator" name="addSerializer"/>
-		<lookup-method ref="IntOperator" name="addSerializer"/>
-		<lookup-method ref="DoubleOperator" name="addSerializer"/>
+		<bean class="utils.io.IntOperator" id="IntOperator"/>
+		<bean class="utils.io.DoubleOperator" id="DoubleOperator"/>
+		<bean class="utils.io.PointOperator" id="PointOperator"/>
+		<bean class="utils.io.UTFStringOperator" id="UTFStringOperator"/>
 		
-		<lookup-method ref="IntOperator" name="addDeserializer"/>
-		<lookup-method ref="IntOperator" name="addDeserializer"/>
-	</bean>
-	
-	<bean id="ChatMessageOperator" class="utils.io.StreamOperator">
-		<!-- userid -->
-		<lookup-method ref="IntOperator" name="addSerializer"/>
-		<!-- message -->
-		<lookup-method ref="UTFStringOperator" name="addSerializer"/>
-	</bean>
-	
-	<bean id="PingPacket" class="net.packets.BytePacket">
-		<proeprty name="type" value="0"/>
-		<property ref="HeaderOperator" name="headerOperator"/>
-	</bean>
-	
-	<bean id="ChatMessage" class="net.packets.BytePacket">
-		<proeprty name="type" value="1"/>
-		<property ref="HeaderOperator" name="headerOperator"/>
-		<property ref="ChatMessageOperator" name="streamOperator"/>
-	</bean>
+		<bean id="HeaderOperator" class="utils.io.StreamOperator">	
+			<lookup-method ref="IntOperator" name="addSerializer"/>
+			<lookup-method ref="IntOperator" name="addSerializer"/>
+			<lookup-method ref="DoubleOperator" name="addSerializer"/>
+			
+			<lookup-method ref="IntOperator" name="addDeserializer"/>
+			<lookup-method ref="IntOperator" name="addDeserializer"/>
+		</bean>
 		
+		<bean id="LoginOperator" class="utils.io.StreamOperator">
+			<!-- login -->
+			<lookup-method ref="UTFStringOperator" name="addDeserializer"/>
+			<!-- password -->
+			<lookup-method ref="UTFStringOperator" name="addDeserializer"/>
+		</bean>
+		
+		<bean id="LoginAnswerOperator" class="utils.io.StreamOperator">
+			<!-- status -->
+			<lookup-method ref="IntOperator" name="addSerializer"/>
+		</bean>
+		
+		<bean id="ChatMessageOperator" class="utils.io.StreamOperator">
+			<!-- userid -->
+			<lookup-method ref="IntOperator" name="addSerializer"/>
+			<!-- mesasge group -->
+			<lookup-method ref="IntOperator" name="addSerializer"/>
+			<!-- message -->
+			<lookup-method ref="UTFStringOperator" name="addSerializer"/>
+		</bean>
+		
+		<bean id="PingPacket" class="net.packets.BytePacket">
+			<property name="type" value="0"/>
+			<property ref="HeaderOperator" name="headerOperator"/>
+		</bean>
+		
+		<bean id="ChatMessage" class="net.packets.BytePacket">
+			<property name="type" value="1"/>
+			<property name="headerOperator" ref="HeaderOperator"/>
+			<property name="streamOperator" ref="ChatMessageOperator"/>
+		</bean>
+		
+		<bean id="LoginAnswer" class="net.packets.BytePacket">
+			<property name="type" value="2"/>
+			<property name="headerOperator" ref="HeaderOperator"/>
+			<property name="streamOperator" ref="LoginAnswerOperator"/>
+		</bean>
+			
+		<bean id="LoginPacket" class="net.packets.BytePacket">
+			<property name="type" value="3"/>
+			<property name="headerOperator" ref="HeaderOperator"/>
+			<property name="streamOperator" ref="LoginOperator"/>
+		</bean>
+		
+		<bean id="LoginEventListener" class="net.events.LoginAnswerEventListener">
+			<lookup-method name="setType" ref="LoginAnswer"/>
+		</bean>
+		
+		<bean id="SocketDataRouter" class="net.events.SocketDataEventRouter">
+			<lookup-method name="addEventListener" ref="LoginEventListener"/>
+		</bean>
+			
+		<bean id="DataReader" class="net.DataReader">
+			<property name="eventRouter" ref="SocketDataRouter"/>
+			<lookup-method name="addPacket" ref="LoginAnswer"/>
+			<lookup-method name="addPacket" ref="ChatMessage"/>
+		</bean>
+		
+		<bean id="ConnectionManager" class="net.ConnectionManager">
+			<property name="dataReader" ref="DataReader"/>
+		</bean>
+		
+		<bean id="PingSender" class="net.PingSender"/>
 	
-	<bean class="net.ConnectionManager"/>
-	<bean class="net.PingSender"/>
+		<!-- services -->
+			<bean id="LoginService" class="services.LoginService">
+				<property name="connectionManager" ref="ConnectionManager"/>
+				<property name="loginPacket" ref="LoginPacket"/>
+			</bean>
+		<!-- end of services -->
+	
 	<!-- end of Net configuration -->
 	
-	<!-- Main configuration -->
-	
-	
-	<!-- end of Main configuration -->
+
+
 	
 	<!-- away config -->
 	

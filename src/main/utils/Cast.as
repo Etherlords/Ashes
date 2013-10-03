@@ -13,14 +13,14 @@ package utils
 		{
 			var returnValue:Object;
 			
-			var asInt:int = int(value);
+			var asInt:Object = parseInt(value);
 			
-			if (!isNaN(asInt))// && String(asInt).length == value.length)
+			if (!isNaN(asInt as Number))// && String(asInt).length == value.length)
 			{
 				if (isNumber(value))
 					return parseFloat(value);
 				else
-					return asInt;
+					return asInt as int;
 			}
 			
 			return value

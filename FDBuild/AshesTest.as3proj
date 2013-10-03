@@ -16,6 +16,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
+    <class path="..\src\mockary" />
     <class path="..\src\test" />
     <class path="..\src\main" />
     <class path="..\..\away3dExtension\src" />

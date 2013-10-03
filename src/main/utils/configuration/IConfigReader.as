@@ -9,6 +9,8 @@ package utils.configuration
 	{
 		
 		function read(config:XML):void;
+		function inject():void
+		function callConstructor():void
 		function get ident():String;
 	}
 	

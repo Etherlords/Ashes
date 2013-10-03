@@ -1,10 +1,13 @@
 package utils.configuration 
 {
+	import error.BeanClassNotDefinedError;
+	import error.BeanError;
 	
 	public class Bean implements IConfigReader
 	{
 		public static const IDENT:String = 'bean';
 		static public const PROPERTY_CREATE_METHOD:String = "createFromXMLList";
+		static public const INITILZIE_METHOD:String = 'initilize';
 		
 		private var config:XML;
 		private var instance:Object;
@@ -30,12 +33,26 @@ package utils.configuration
 			var clazz:String = config.@[KeyConstants.CLASS_REF];
 			var ident:String = config.@id;
 			
+			if (!clazz)
+				throw BeanError.beanClassNotDefinedError(config[0].toXMLString());
+			
 			instance = ClassFactory.createClass(clazz);
 			
+			addToContext(instance, ident);
+		}
+		
+		public function inject():void
+		{
 			assignPropertys(KeyConstants.PROPERTY, Property);
 			assignPropertys(KeyConstants.METHOD_LOOKUP, MethodLookup);
 			
-			addToContext(instance, ident);
+			//instance['initilize']();
+		}
+		
+		public function callConstructor():void 
+		{
+			if (INITILZIE_METHOD in instance)
+				instance['initilize']();
 		}
 		
 		private function assignPropertys(type:String, builder:Class):void

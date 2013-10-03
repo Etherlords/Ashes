@@ -41,8 +41,6 @@ import flash.utils.IDataOutput;
 				//trace(currentdeserializer);
 			}
 			
-			trace('writed: ' + size);
-			
 			return size;
 		}
 		
@@ -57,8 +55,6 @@ import flash.utils.IDataOutput;
 				output.push(currentSerializer.value);
 				//trace(currentSerializer);
 			}
-			
-			trace('readed: ' + size);
 			
 			return size;
 		}

@@ -1,10 +1,16 @@
 package  
 {
-	import display.builders.MD5ModelBuilder;
 	import geom.PathMathematic;
+	import logic.MainController;
+	import logic.ui.LoginWindowController;
 	import net.ConnectionManager;
+	import net.DataReader;
+	import net.events.LoginAnswerEventListener;
+	import net.events.SocketDataEventRouter;
 	import net.packets.BytePacket;
 	import net.PingSender;
+	import services.LoginService;
+	import ui.LoginWindow;
 	import utils.io.DoubleOperator;
 	import utils.io.IntOperator;
 	import utils.io.PointOperator;
@@ -13,19 +19,32 @@ package
 
 	public class ClassesReference 
 	{
+		LoginWindowController;
+		LoginWindow;
 		
-		internal var intOp:IntOperator;
-        internal var doubleOp:DoubleOperator;
-        internal var pointOp:PointOperator;
-        internal var utfStringOp:UTFStringOperator;
+		LoginAnswerEventListener;
+		
+		
+		SocketDataEventRouter;
+		
+		MainController;
+		
+		IntOperator;
+        DoubleOperator;
+        PointOperator;
+        UTFStringOperator;
 
-        internal var streamOp:StreamOperator;
-        internal var conManager:ConnectionManager;
-        internal var pingSender:PingSender;
-        internal var bytePack:BytePacket;
+        StreamOperator;
+        ConnectionManager;
+        PingSender;
+        BytePacket;
+		
+		DataReader;
+		
+		LoginService;
 
-        internal var worldTime:WorldTimeController;
-        internal var mathem:PathMathematic;
+        WorldTimeController;
+        PathMathematic;
 		//var md5builder:MD5ModelBuilder;
 		
 	}
