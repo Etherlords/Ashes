@@ -12,7 +12,7 @@ package net
 		public var readers:Object = { };
 		public var buffer:ByteArray = new ByteArray();
 		
-		static public const HEADER_SYZE:int = 12;
+		static public const HEADER_SYZE:int = 8;
 		
 		public function DataReader() 
 		{
@@ -30,16 +30,16 @@ package net
 			readers[packet.type] = packet;
 		}
 		
-		private var bytesNeeded:uint = 0
-		private var bufferLength:uint = 0;
+		private var bytesNeeded:int = 0
+		private var bufferLength:int = 0;
 		
 		public function read(input:IDataInput):void
 		{
 			//read inputed data to buffer
 			var inputDataLength:uint = input.bytesAvailable;
 			
+			input.readBytes(buffer, bufferLength, inputDataLength);
 			bufferLength += inputDataLength;
-			input.readBytes(buffer, 0, inputDataLength);
 			
 			//process buffer if buffer length is enought to read packet then read packet
 			processBuffer();
@@ -68,7 +68,7 @@ package net
 				return;
 				
 			//read packet type from buffer
-			var type:uint = buffer.readInt();
+			var type:int = buffer.readInt();
 			
 			//read packet
 			var reader:BytePacket = readers[type];

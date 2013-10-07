@@ -5,6 +5,7 @@ package
 	import logic.ui.LoginWindowController;
 	import net.ConnectionManager;
 	import net.DataReader;
+	import net.events.ChatMessageEventListener;
 	import net.events.LoginAnswerEventListener;
 	import net.events.SocketDataEventRouter;
 	import net.packets.BytePacket;
@@ -23,6 +24,7 @@ package
 		LoginWindow;
 		
 		LoginAnswerEventListener;
+		ChatMessageEventListener;
 		
 		
 		SocketDataEventRouter;

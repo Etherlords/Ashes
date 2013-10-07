@@ -2,6 +2,7 @@ package net.events
 {
 	import logic.MainController;
 	import net.packets.BytePacket;
+	import ui.model.LazyProxy;
 	
 	public class LoginAnswerEventListener implements IBytePacketDataEventListener 
 	{
@@ -20,8 +21,8 @@ package net.events
 			if (!mainController)
 				inject(this);
 				
-				
-			mainController.onLoginAnswer(packet.output[0]);
+				trace('on login answr', packet.output);
+			mainController.onLoginAnswer(packet.output[0], packet.output[1]);
 		}
 		
 		public function setType(packet:BytePacket):void

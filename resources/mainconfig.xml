@@ -1,12 +1,21 @@
-<config>
+<beans>
 	<!-- ui -->
-		<bean class="logic.ui.LoginWindowController">
+		<bean class="logic.ui.LoginWindowController" id="LoginWindow">
 			<property name="loginService" ref="LoginService"/>
+		</bean>
+		
+		<bean class="logic.ui.LobbyWindowController" id="LobbyWindow">
+			<property name="chatService" ref="ChatService"/>
 		</bean>
 	<!-- end of ui -->
 	<!-- Main configuration -->
+		<bean id="GameModel" class="ui.model.LazyProxy"/>
+		
 		<bean id="Main" class="logic.MainController">
 			<property name="pingSender" ref="PingSender"/>
+			<property name="loginWindow" ref="LoginWindow"/>
+			<property name="lobbyWindow" ref="LobbyWindow"/>
+			<property name="gameModel" ref="GameModel"/>
 		</bean>
 	<!-- end of Main configuration -->
 	
@@ -24,7 +33,6 @@
 		<bean id="HeaderOperator" class="utils.io.StreamOperator">	
 			<lookup-method ref="IntOperator" name="addSerializer"/>
 			<lookup-method ref="IntOperator" name="addSerializer"/>
-			<lookup-method ref="DoubleOperator" name="addSerializer"/>
 			
 			<lookup-method ref="IntOperator" name="addDeserializer"/>
 			<lookup-method ref="IntOperator" name="addDeserializer"/>
@@ -38,6 +46,8 @@
 		</bean>
 		
 		<bean id="LoginAnswerOperator" class="utils.io.StreamOperator">
+			<!-- id -->
+			<lookup-method ref="IntOperator" name="addSerializer"/>
 			<!-- status -->
 			<lookup-method ref="IntOperator" name="addSerializer"/>
 		</bean>
@@ -49,6 +59,13 @@
 			<lookup-method ref="IntOperator" name="addSerializer"/>
 			<!-- message -->
 			<lookup-method ref="UTFStringOperator" name="addSerializer"/>
+			
+			<!-- userid -->
+			<lookup-method ref="IntOperator" name="addDeserializer"/>
+			<!-- mesasge group -->
+			<lookup-method ref="IntOperator" name="addDeserializer"/>
+			<!-- message -->
+			<lookup-method ref="UTFStringOperator" name="addDeserializer"/>
 		</bean>
 		
 		<bean id="PingPacket" class="net.packets.BytePacket">
@@ -74,33 +91,46 @@
 			<property name="streamOperator" ref="LoginOperator"/>
 		</bean>
 		
-		<bean id="LoginEventListener" class="net.events.LoginAnswerEventListener">
-			<lookup-method name="setType" ref="LoginAnswer"/>
-		</bean>
-		
-		<bean id="SocketDataRouter" class="net.events.SocketDataEventRouter">
-			<lookup-method name="addEventListener" ref="LoginEventListener"/>
-		</bean>
+		<!-- events/ events routing -->
+			<bean id="SocketDataRouter" class="net.events.SocketDataEventRouter">
+				<lookup-method name="addEventListener" ref="LoginEventListener"/>
+				<lookup-method name="addEventListener" ref="ChatMesasgeEventListener"/>
+			</bean>
+				
+			<bean id="LoginEventListener" class="net.events.LoginAnswerEventListener">
+				<lookup-method name="setType" ref="LoginAnswer"/>
+			</bean>
 			
-		<bean id="DataReader" class="net.DataReader">
-			<property name="eventRouter" ref="SocketDataRouter"/>
-			<lookup-method name="addPacket" ref="LoginAnswer"/>
-			<lookup-method name="addPacket" ref="ChatMessage"/>
-		</bean>
+			<bean id="ChatMesasgeEventListener" class="net.events.ChatMessageEventListener">
+				<lookup-method name="setType" ref="ChatMessage"/>
+				<property name="lobbyController" ref="LobbyWindow"/>
+			</bean>
+		<!-- events/ events routing -->
 		
-		<bean id="ConnectionManager" class="net.ConnectionManager">
-			<property name="dataReader" ref="DataReader"/>
-		</bean>
-		
-		<bean id="PingSender" class="net.PingSender"/>
-	
 		<!-- services -->
+			<bean id="ChatService" class="services.ChatService">
+				<property name="connectionManager" ref="ConnectionManager"/>
+				<property name="chatMessage" ref="ChatMessage"/>
+				<property name="gameModel" ref="GameModel"/>
+			</bean>
+			
 			<bean id="LoginService" class="services.LoginService">
 				<property name="connectionManager" ref="ConnectionManager"/>
 				<property name="loginPacket" ref="LoginPacket"/>
 			</bean>
 		<!-- end of services -->
 	
+	<bean id="DataReader" class="net.DataReader">
+		<property name="eventRouter" ref="SocketDataRouter"/>
+		<lookup-method name="addPacket" ref="LoginAnswer"/>
+		<lookup-method name="addPacket" ref="ChatMessage"/>
+	</bean>
+		
+	<bean id="ConnectionManager" class="net.ConnectionManager">
+		<property name="dataReader" ref="DataReader"/>
+	</bean>
+	
+	<bean id="PingSender" class="net.PingSender"/>
 	<!-- end of Net configuration -->
 	
 
@@ -110,4 +140,4 @@
 	
 	<!-- end of away config -->
 	
-</config>
+</beans>

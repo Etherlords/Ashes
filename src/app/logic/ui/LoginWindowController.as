@@ -5,16 +5,9 @@ package logic.ui
 	import services.LoginService;
 	import ui.LoginWindow;
 	import ui.model.ObjectProxy;
-	/**
-	 * ...
-	 * @author Nikro
-	 */
-	public class LoginWindowController 
+	
+	public class LoginWindowController extends UIController
 	{
-		
-		[Inject]
-		public var stage:Stage;
-		
 		public var loginService:LoginService;
 		
 		private var loginWindowModel:ObjectProxy
@@ -25,9 +18,9 @@ package logic.ui
 			
 		}
 		
-		public function initilize():void
+		override public function initilize():void
 		{
-			inject(this);
+			super.initilize();
 			
 			loginWindowModel = new ObjectProxy();
 			
@@ -37,8 +30,7 @@ package logic.ui
 			loginWindowView.initilize();
 			
 			loginWindowView.addEventListener('Login', onLoginPress);
-			
-			stage.addChild(loginWindowView);
+			myView = loginWindowView;
 		}
 		
 		private function onLoginPress(e:Event):void 

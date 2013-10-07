@@ -33,6 +33,7 @@ package net.packets
 			
 			if (streamOperator)
 			{
+				output = [];
 				streamOperator.output = output;
 				streamOperator.serialize((source as IDataInput));
 			}
@@ -59,7 +60,6 @@ package net.packets
 			
 			headerInput[0] = size;
 			headerInput[1] = type;
-			headerInput[2] = 0;
 			
 			headerOperator.input = headerInput;
 			headerOperator.deserialize((source as IDataOutput));

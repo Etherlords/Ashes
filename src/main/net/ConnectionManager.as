@@ -3,6 +3,7 @@ package net
 	import core.net.Socket;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
+	import flash.system.Security;
 	import geom.PathMathematic;
 	import net.packets.BytePacket;
 	/**
@@ -11,7 +12,7 @@ package net
 	 */
 	public class ConnectionManager 
 	{
-		public var sock:MockSocket;
+		public var sock:Socket;
 		
 		private static const crossDomain:String = "<cross-domain-policy><site-control permitted-cross-domain-policies='all'/><allow-access-from domain='*' to-ports='*' /></cross-domain-policy>";
 		
@@ -23,6 +24,9 @@ package net
 		
 		public var dataReader:DataReader;
 		
+		private var totalSend:int;
+		private var totalRecived:int;
+		
 		public function ConnectionManager() 
 		{
 			inject(this);	
@@ -31,7 +35,11 @@ package net
 		
 		public function connect():void 
 		{
-			sock = new MockSocket('PLANETVEGETA', 8881);
+			//Security.loadPolicyFile('xmlsocket://localhost:8881');
+			//Security.loadPolicyFile('socket://PLANETVEGETA:8881');
+			
+			trace('load policy');
+			sock = new Socket('PLANETVEGETA', 8881);
 			
 			sock.addEventListener(ProgressEvent.SOCKET_DATA, onData);
 			sock.addEventListener(Event.CONNECT, onConnect);
@@ -41,14 +49,21 @@ package net
 		{
 			packet.source = sock;
 			packet.write();
+			totalSend += sock.bytesPending;
+			trace('send', sock.bytesPending);
+			
 			sock.flush();
 			
+			trace('totalsend', (totalSend / 1000).toFixed(2));
 			
 		}
 		
 		private function onData(e:ProgressEvent):void 
 		{
-			trace('ondata', sock.bytesAvailable);
+			var avail:int = sock.bytesAvailable;
+			trace('ondata', avail);
+			totalRecived += avail;
+			trace('totalget', (totalRecived / 1000).toFixed(2));
 			dataReader.read(sock);
 		}
 		

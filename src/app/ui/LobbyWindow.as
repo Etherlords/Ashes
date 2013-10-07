@@ -54,7 +54,15 @@ package ui
 		
 		public function addPlayer(item:Object):void
 		{
-			playersListItems.push(item);
+			for (var i:int = 0; i < playersListItems.length; i++)
+			{
+				if (playersListItems[i].label == item.label)
+					return;
+			}
+			
+			playersList.addItem(item);
+			
+			//playersListItems.push(item);
 			playersList.invalidate();
 		}
 		

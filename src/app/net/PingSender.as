@@ -37,7 +37,7 @@ package net
 		
 		private function sendPing(e:TimerEvent = null):void 
 		{
-			connectionManager.send(pingPacket);
+			//connectionManager.send(pingPacket);
 		}
 		
 	}

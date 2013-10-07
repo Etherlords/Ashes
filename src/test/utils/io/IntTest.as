@@ -41,10 +41,10 @@ package utils.io
 		public function testDeserialize():void
 		{
 			processor.value = 4321;
-			var readedSize:int = processor.deserialize(output);
+			var writeSize:int = processor.deserialize(output);
 			output.position = 0;
 			
-			assertThat('check buffer size', readedSize, equalTo(TypesSize.INT_SIZE));
+			assertThat('check buffer size', writeSize, equalTo(TypesSize.INT_SIZE));
 			assertThat('check desirialization value', output.readInt(), equalTo(4321));
 		}
 		

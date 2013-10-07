@@ -2,7 +2,6 @@ package
 {
 	import core.ioc.Context;
 	import flash.display.Sprite;
-	import utils.io.IStreamInputOutput;
 	
 	/**
 	 * ...
@@ -14,7 +13,10 @@ package
 		public function Main() 
 		{
 			super();
+			stage.align = 'TL';
+			stage.scaleMode = 'noScale';
 			Context.instance.addObjectToContext(stage, 'Stage');
+			
 			new XMLBootstrap();
 		}
 		
